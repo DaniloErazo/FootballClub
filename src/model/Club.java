@@ -30,6 +30,66 @@ public class Club{
 		teamA = new Team(A);
 		teamB = new Team(B);
 		employees = new ArrayList<Employee>();
+		fillFacilities();
+	}
+	
+	public void fillFacilities(){
+		//Fill offices 
+		for (int i=0; i< offices.length; i+=2) {
+			for (int j = 0; j < offices[0].length; j+=2) {
+				offices[i][j]="Disponible";
+			}
+		}
+		
+		for (int i=0; i< offices.length; i+=2) {
+			for (int j = 1; j < offices[0].length; j+=2) {
+				offices[i][j]="----------";
+			}
+		}
+		
+		for (int i=1; i< offices.length; i+=2) {
+			for (int j = 0; j < offices[0].length; j++) {
+				offices[i][j]="----------";
+			}
+		}
+		
+		//Fill dressing A
+		for (int i=0; i< dressingA.length; i+=2) {
+			for (int j = 0; j < dressingA[0].length; j+=2) {
+				dressingA[i][j]="Disponible";
+			}
+		}
+		
+		for (int i=0; i< dressingA.length; i+=2) {
+			for (int j = 1; j < dressingA[0].length; j+=2) {
+				dressingA[i][j]="----------";
+			}
+		}
+		
+		for (int i=1; i< dressingA.length; i+=2) {
+			for (int j = 0; j < dressingA[0].length; j++) {
+				dressingA[i][j]="----------";
+			}
+		}
+		
+		//Fill dressingB
+		for (int i=0; i< dressingB.length; i+=2) {
+			for (int j = 0; j < dressingB[0].length; j+=2) {
+				dressingB[i][j]="Disponible";
+			}
+		}
+		
+		for (int i=0; i< dressingB.length; i+=2) {
+			for (int j = 1; j < dressingB[0].length; j+=2) {
+				dressingB[i][j]="----------";
+			}
+		}
+		
+		for (int i=1; i< dressingB.length; i+=2) {
+			for (int j = 0; j < dressingB[0].length; j++) {
+				dressingB[i][j]="----------";
+			}
+		}
 	}
 	
 	/**
@@ -155,6 +215,91 @@ public class Club{
 	}
 	
 	/**
+	 * Method that checks if the given id corresponds to an employee<br>
+	 * <b> pre: </b> employees is initialized and filled <br>  
+	 * <b> pos: </b> <br>
+	 * @param id it's the employee's identification to check existence. nickname!=null. nickname!="" <br>
+	 * @return found which is true if the identification is found, false otherwise
+	 */
+	public boolean findId(String id){
+		
+		boolean found = false;
+		for(int i=0; i<employees.size(); i++){
+			String idCheck = employees.get(i).getId();
+			if(idCheck.equals(id)){
+				found=true;
+			}
+		}
+		
+		return found;
+	}
+	
+	
+	/**
+	 * checkType, this method checks if the employee given id belongs to the type of employee required<br>
+	 * <b> pre: </b> employees is initialized <br>  
+	 * <b> pos: </b> <br>
+	 * @param type is the type to be consulted, it's either 1, 2 or 3. 1 for player. 2 for assistant coach and 3 for coach. type &gt; 0 <br>
+	 * @param id is the employee identification to check. id!=null, id!=""  
+	 * @return typeFound if the playlist belongs to the given type it's true, otherwise is false 
+	 */
+	public boolean checkType(String id, int type){
+		boolean typeFound=false;
+		int index = 0;
+		
+		for(int i=0; i<employees.size(); i++){
+			String idCheck = employees.get(i).getId();
+			if(idCheck.equals(id)){
+				index=i;
+			}
+		}
+		
+		if(type==1){
+			if(employees.get(index) instanceof Player){
+				typeFound=true;
+			}
+		}else if(type==2){
+			if(employees.get(index) instanceof AssistantCoach){
+				typeFound=true;
+			}
+		}else if (type==3){
+			if(employees.get(index) instanceof MainCoach){
+				typeFound=true;
+			}
+		}
+		
+		return typeFound;
+	}
+	
+	
+	/**
+	 * teamAvailable, this method checks for the available space for players and assistants in a team<br>
+	 * <b> pre: </b> the team is created <br>  
+	 * <b> pos: </b> <br>
+	 * @param team is the team name to be consulted. team!=null, team!="" 0 <br> 
+	 * @return availables it's a boolean array size 2, in its first position saves if there's space
+	 * for more players, and in the second for assistants
+	 */
+	public boolean[] teamAvailable(String team){
+		boolean players=false;
+		boolean assistants=false;
+		boolean[] availables = new boolean[2];
+		
+		if(team.equals("Bridgets")){
+			players=teamA.playerSpace();
+			assistants=teamA.assistantSpace();
+		}else{
+			players=teamB.playerSpace();
+			assistants=teamB.assistantSpace();
+		}
+		
+		availables[0]=players;
+		availables[1]=assistants;
+		
+		return availables;
+	}
+	
+	/**
 	 * officeSpace, this method informs if there's space available in the offices</br>
 	 * <b> Pre:</b> offices is initialized</br>
 	 * <b> Pos:</b> </br>
@@ -164,7 +309,7 @@ public class Club{
 		int count=0;
 		for (int i=0; i< offices.length; i+=2) {
 			for (int j = 0; j < offices[0].length; j+=2) {
-				if(offices[i][j]==null){
+				if(offices[i][j].equals("Disponible")){
 					count+=1;
 				}
 			}
@@ -187,10 +332,12 @@ public class Club{
 			}
 		}
 		
-		for (int i=0; i< offices.length; i+=2) {
-			for (int j = 0; j < offices[0].length; j+=2) {
-				if(offices[i][j]==null){
+		boolean stop = false;
+		for (int i=0; i< offices.length & !stop; i+=2) {
+			for (int j = 0; j < offices[0].length & !stop; j+=2) {
+				if(offices[i][j]=="Disponible"){
 					offices[i][j]=employeeName;
+					stop=true;
 				}
 			}
 		}
@@ -214,7 +361,7 @@ public class Club{
 		int count=0;
 		for (int i=0; i< dressingAux.length; i+=2) {
 			for (int j = 0; j < dressingAux[0].length; j+=2) {
-				if(dressingAux[i][j]==null){
+				if(dressingAux[i][j]=="Disponible"){
 					count+=1;
 				}
 			}
@@ -248,7 +395,7 @@ public class Club{
 		
 		for (int i=0; i< dressingAux.length; i+=2) {
 			for (int j = 0; j < dressingAux[0].length; j+=2) {
-				if(dressingAux[i][j]==null){
+				if(dressingAux[i][j]=="Disponible"){
 					dressingAux[i][j]=employeeName;
 				}
 			}
