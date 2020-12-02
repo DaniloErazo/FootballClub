@@ -13,8 +13,8 @@ public abstract class Coach extends Employee{
 	
 	@Override
 	public String toString(){
-		String info = "";
-		info = super.toString() + 
+		String info = "*************Entrenador*************\n";
+		info += super.toString() + 
 		"Años de experiencia: " + experienceYears;
 		return info;
 	}

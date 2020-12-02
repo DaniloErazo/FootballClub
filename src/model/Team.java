@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 
 public class Team{
 
@@ -9,7 +10,7 @@ public class Team{
 	private MainCoach mainCoach;
 	private AssistantCoach[] assistants;
 	private Player[] players;
-	private LineUp line;
+	private ArrayList<LineUp> line;
 	private int currentPlayers;
 	private int currentAssistants;
 
@@ -18,11 +19,12 @@ public class Team{
 		currentPlayers=0;
 		players = new Player[25];
 		assistants = new AssistantCoach[3];
+		line = new ArrayList<LineUp>();
 	}
 	
-	public void addLineUp(String date, String chain){
-		
-		LineUp line = new LineUp(date, chain);
+	public void addLineUp(String date, String chain, Tactics tactics){
+		LineUp newLine = new LineUp(date, chain, tactics);
+		line.add(newLine);
 	}
 	
 	public void setMainCoach(MainCoach ppal){
@@ -70,6 +72,23 @@ public class Team{
 	}
 	
 	/**
+	 * findPlayer, this method checks if a player belongs to the team</br>
+	 * <b> Pre:</b> players is initialized and filled</br>
+	 * <b> Pos:</b> </br>
+	 * @param id, it's the player's id to check 
+	 * @return found, which is true if the player belongs to, false otherwise
+	 */
+	public boolean findPlayer(String id){ //añadir a diagrama 
+		boolean found = false; 
+		for(int i=0; i<players.length; i++){
+			if(players[i].getId().equals(id)){
+				found = true;
+			}
+		}
+		return found;
+	}
+	
+	/**
 	 * addCoach, this method adds a coach to the team</br>
 	 * <b> Pre:</b> assistants is initialized and has empty indexes </br>
 	 * <b> Pos:</b> assistants has a new object in the first empty found position. currentAssistants is incremented by one</br>
@@ -91,19 +110,22 @@ public class Team{
 	public String toString(){
 		String info="";
 		info = "*************Equipo*************\n" + 
-		"Entrenador principal: " + mainCoach.getName() + "\n" + playersAndAssistants();
+		"Entrenador principal: " + mainCoach.getName() + "\n" + playersAndAssistants()+
+		"Alineaciones: \n " + allLines();
 		return info;
 	}
 	
 	/**
 	 * Method that produces a String with the names of all the players and assistant coaches
-	 * @return info String with the mentioned names 
+	 * <b> Pre:</b> assistants and players are initialized</br>
+	 * <b> Pos:</b> </br>
+	 * @return playerAndAssistantInfo String with the mentioned names 
 	 */
 	public String playersAndAssistants(){
 		
 		String playerAndAssistantInfo = "Entrenadores asistentes: \n";
 		
-		for (int i=0; i<players.length; i++){
+		for (int i=0; i<assistants.length; i++){
 			if(assistants[i]!=null){
 				playerAndAssistantInfo += assistants[i].getName() + "\n";
 			}
@@ -119,6 +141,24 @@ public class Team{
 		
 		return playerAndAssistantInfo;
 		
+	}
+	
+	/**
+	 * Method that produces a String with the information of all the formations added
+	 * <b> Pre:</b> line is initialized</br>
+	 * <b> Pos:</b> </br>
+	 * @return lineInfo String with the information of each formation
+	 */
+	public String allLines(){ //Añadir a diagrama 
+		String lineInfo="";
+		
+		for (int i=0; i<line.size(); i++){
+			if(line.get(i)!=null){
+				lineInfo += line.get(i).toString() + "\n";
+			}
+		}
+		
+		return lineInfo;
 	}
 	
 

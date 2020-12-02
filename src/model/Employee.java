@@ -5,11 +5,13 @@ public abstract class Employee{
 	private String name;
 	private String id; 
 	private double salary;
+	private boolean status;
 	
 	public Employee(String name, String id, double salary){
 		this.name=name;
 		this.id=id;
 		this.salary=salary;
+		status=true;
 	}
 	
 	public String getId(){
@@ -18,6 +20,10 @@ public abstract class Employee{
 	
 	public String getName(){
 		return name;
+	}
+	
+	public void setStatus(boolean status){
+		this.status=status;
 	}
 	
 	/**

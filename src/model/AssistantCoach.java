@@ -12,8 +12,8 @@ public class AssistantCoach extends Coach{
 	}
 
 	public String toString(){
-		String info="";
-		info = super.toString() + 
+		String info="(Asitente) \n";
+		info += super.toString() + 
 		"Experiencia como jugador: " + wasPlayer + "\n" +
 		"Habilidades: " + skills;
 		return info;

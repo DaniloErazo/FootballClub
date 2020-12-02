@@ -15,8 +15,8 @@ public class MainCoach extends Coach{
 	
 	@Override
 	public String toString(){
-		String info="";
-		info = super.toString() + 
+		String info="(Principal)\n";
+		info += super.toString() + 
 		"Número de equipos de experiencia: " + teamsExperience + "\n" +
 		"Campeonatos ganados: " + wonChampionships + "\n";
 		return info;

@@ -17,8 +17,8 @@ public class Player extends Employee{
 	
 	@Override
 	public String toString(){
-		String info="";
-		info = super.toString() + 
+		String info="*************Jugador*************\n";
+		info += super.toString() + 
 		"Dorsal: " + numberShirt + "\n" +
 		"Calificación promedio: " + averageRating + "\n" +
 		"Número de goles marcados: " + numberGoals + "\n" +

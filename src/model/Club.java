@@ -33,6 +33,18 @@ public class Club{
 		fillFacilities();
 	}
 	
+	public String[][] getOffices(){
+		return offices;
+	}
+	
+	public String[][] getDressingA(){
+		return dressingA;
+	}
+	
+	public String[][] getDressingB(){
+		return dressingB;
+	}
+	
 	public void fillFacilities(){
 		//Fill offices 
 		for (int i=0; i< offices.length; i+=2) {
@@ -123,9 +135,15 @@ public class Club{
 	 * @param teamsExperience, number of teams that the coach has managed. teamsExperience &gt 0
 	 * @param wonChampionships, number of championships won by the coach. wonChampionships &gt 0
 	 */
-	public void addCoach (String name, String id, double salary, int experienceYears, int teamsExperience, int wonChampionships){
+	public void addCoach (String name, String id, double salary, int experienceYears, int teamsExperience, int wonChampionships, String team){
 		MainCoach ppalCoach = new MainCoach(name, id, salary, experienceYears, teamsExperience, wonChampionships);
 		employees.add(ppalCoach);
+		if(team.equals("Bridgets")){
+			teamA.setMainCoach(ppalCoach);
+		}else{
+			teamB.setMainCoach(ppalCoach);
+		}
+		
 	}
 	
 	/**
@@ -148,16 +166,40 @@ public class Club{
 	/**
 	 * fireEmployee, this method fires an employee  </br>
 	 * <b> Pre:</b> employees is initialized and filled </br>
-	 * <b> Pos:</b> employees has one object less </br>
+	 * <b> Pos:</b> </br>
 	 * @param id, it's the employee's identification to fire. id!= "", id!=null
 	 */
 	public void fireEmployee(String id){
 		for(int i=0; i<employees.size(); i++){
 			String idCheck = employees.get(i).getId();
 			if(idCheck.equals(id)){
-				employees.remove(i);
+				employees.get(i).setStatus(false);
 			}
 		}
+	}
+	
+	public String consultEmployee(String id){ //añadir a diagrama
+		String info="";
+		
+		for(int i=0; i<employees.size(); i++){
+			String idCheck = employees.get(i).getId();
+			if(idCheck.equals(id)){
+				info += employees.get(i).toString();
+			}
+		}
+		
+		return info;
+	}
+	
+	public String consultTeam(int i){ //añadir a diagrama
+		String info = "";
+		if (i==1){
+			info = teamA.toString();
+		}else {
+			info = teamB.toString();
+		}
+		
+		return info;
 	}
 	
 	/**
@@ -324,11 +366,11 @@ public class Club{
 	 * @param id,  it's the employee identification. id!=null, id!=""
 	 */
 	public void setInOffice(String id){
-		String employeeName="";
+		String employeeId="";
 		for(int i=0; i<employees.size(); i++){
 			String idCheck = employees.get(i).getId();
 			if(idCheck.equals(id)){
-				employeeName= employees.get(i).getName();
+				employeeId= employees.get(i).getId();
 			}
 		}
 		
@@ -336,7 +378,7 @@ public class Club{
 		for (int i=0; i< offices.length & !stop; i+=2) {
 			for (int j = 0; j < offices[0].length & !stop; j+=2) {
 				if(offices[i][j]=="Disponible"){
-					offices[i][j]=employeeName;
+					offices[i][j]=employeeId;
 					stop=true;
 				}
 			}
@@ -370,14 +412,68 @@ public class Club{
 	}
 	
 	/**
+	 * verifyTeamtoDressing, this method checks if a player can be added to a dressing room according to the team</br>
+	 * <b> Pre:</b> dressingA, dressingB, and employees are initialized</br>
+	 * <b> Pos:</b> </br>
+	 * @param dressing, it's the dressing room to check, 1 for dressingA, 2 for dressingB. dressing==(1 || 2)
+	 * @param id it's the player's id to check 
+	 * @return team true if the player can be added, false otherwise
+	 */
+	public boolean verifyTeamtoDressing(String id, int dressing){ //añadir a diagrama 
+		
+		boolean team = false;
+		boolean team2 = false; 
+		boolean team3 = false ;
+		String employeeId = "";
+		String[][] dressingAux;
+		if(dressing==1){
+			dressingAux=dressingA;
+		}else {
+			dressingAux=dressingB;
+		}
+		
+		
+		if(dressingAux[0][0]=="Disponible"){ //If the first position is "Disponible" it means that the dressing room is empty
+			team = true; 
+		}else { //if not, it compares if the team that the player in this position belongs to is the same to the one that the new player belongs to 
+			
+			for(int i=0; i<employees.size(); i++){
+				String idCheck = employees.get(i).getId();
+				if(idCheck.equals(dressingAux[0][0])){
+					employeeId= employees.get(i).getId();
+				}
+			}
+			
+			team2 = teamA.findPlayer(employeeId); //check first team
+			team3 = teamA.findPlayer(id);
+			
+			if(team2==true && team3==true){		//if not, check second team
+				team = true;
+			}else {
+				team2 = teamB.findPlayer(employeeId);
+				team3 = teamB.findPlayer(id);
+			}
+			
+			if (team2==true && team3==true){
+				team = true;
+			}else {
+				team=false;
+			}
+			
+		}
+		
+		return team;
+	}
+	
+	/**
 	 * setInDressing, this method puts a player in an dressing room</br>
 	 * <b> Pre:</b> dressingA, dressingB and employees are initialized. There's available indexes in dressingA or dressingB </br>
-	 * <b> Pos:</b> dressingA or dressingB have an index filled</br>
+	 * <b> Pos:</b> dressingA or dressingB are updated</br>
 	 * @param id,  it's the player identification. It does correspond to a player. id!=null, id!=""
 	 * @param dressing, it's the dressing room to check, 1 for dressingA, 2 for dressingB. dressing==(1 || 2)
 	 */
 	public void setInDressing(String id, int dressing){
-		String employeeName="";
+		String employeeId="";
 		String[][] dressingAux;
 		
 		if(dressing==1){
@@ -389,17 +485,26 @@ public class Club{
 		for(int i=0; i<employees.size(); i++){
 			String idCheck = employees.get(i).getId();
 			if(idCheck.equals(id)){
-				employeeName= employees.get(i).getName();
+				employeeId= idCheck;
 			}
 		}
 		
-		for (int i=0; i< dressingAux.length; i+=2) {
-			for (int j = 0; j < dressingAux[0].length; j+=2) {
+		boolean stop = false;
+		for (int i=0; i< dressingAux.length & !stop; i+=2) {
+			for (int j = 0; j < dressingAux[0].length & !stop; j+=2) {
 				if(dressingAux[i][j]=="Disponible"){
-					dressingAux[i][j]=employeeName;
+					dressingAux[i][j]=employeeId;
+					stop=true;
 				}
 			}
 		}
+		
+		if(dressing==1){
+			dressingA=dressingAux;
+		}else {
+			dressingB=dressingAux;
+		}
+		
 	}
 	
 	
@@ -441,12 +546,34 @@ public class Club{
 		
 		for (int i=0; i< dressingAux.length; i++ ) {
 			for (int j = 0; j < dressingAux[0].length; j++) {
-				print += dressingAux[i][j] + "\t";
+				print += dressingAux[i][j]+ "\t";
 			}
 			print += "\n";
 		}
 
 		return print;
+	}
+	
+	public void addLineUp(String date, String formation, String tactics, String team){ //añadir a diagrama
+		Tactics aTactics = Tactics.valueOf(tactics);
+		
+		if(team.equals("Bridgets")){
+			teamA.addLineUp(date, formation, aTactics);
+		}else{
+			teamA.addLineUp(date, formation, aTactics);
+		}
+	}
+	
+	public String toString(){
+		String info = "***********CLUB***********\n"; 
+		info+= "Nombre: " + name + "\n" +
+		"NIT: " + nit + "\n" +
+		"Fecha de creación: " + creationDate + "\n" +
+		"Bridgets: \n" + teamA.toString() + "\n" + 
+		"Vulcano: \n" + teamB.toString()+ "\n";
+		
+		return info;
+		
 	}
 	
 	
