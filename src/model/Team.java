@@ -13,7 +13,12 @@ public class Team{
 	private ArrayList<LineUp> line;
 	private int currentPlayers;
 	private int currentAssistants;
-
+	
+	
+	/**
+	* Constructor for creating a Team
+	* @param name, it's the team name
+	*/
 	public Team(String name){
 		this.name=name;
 		currentPlayers=0;
@@ -22,10 +27,6 @@ public class Team{
 		line = new ArrayList<LineUp>();
 	}
 	
-	public void addLineUp(String date, String chain, Tactics tactics){
-		LineUp newLine = new LineUp(date, chain, tactics);
-		line.add(newLine);
-	}
 	
 	public void setMainCoach(MainCoach ppal){
 		mainCoach=ppal;
@@ -37,9 +38,9 @@ public class Team{
 	
 	
 	/**
-	 * playerSpace, this method informs if there's space for new players</br>
-	 * <b> Pre:</b> players is initialized</br>
-	 * <b> Pos:</b> </br>
+	 * playerSpace, this method informs if there's space for new players<br>
+	 * <b> Pre:</b> players is initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @return it returns true if there's space, false otherwise
 	 */
 	public boolean playerSpace(){
@@ -47,9 +48,9 @@ public class Team{
 	}
 	
 	/**
-	 * assistantSpace, this method informs if there's space for new assistant coaches</br>
-	 * <b> Pre:</b> assistants is initialized</br>
-	 * <b> Pos:</b> </br>
+	 * assistantSpace, this method informs if there's space for new assistant coaches<br>
+	 * <b> Pre:</b> assistants is initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @return it returns true if there's space, false otherwise
 	 */
 	public boolean assistantSpace(){
@@ -57,9 +58,9 @@ public class Team{
 	}
 	
 	/**
-	 * addPlayer, this method adds a player to the team</br>
-	 * <b> Pre:</b> players is initialized and has empty indexes </br>
-	 * <b> Pos:</b> players has a new object in the first empty found position. currentPlayers is incremented by one</br>
+	 * addPlayer, this method adds a player to the team<br>
+	 * <b> Pre:</b> players is initialized and has empty indexes <br>
+	 * <b> Pos:</b> players has a new object in the first empty found position. currentPlayers is incremented by one<br>
 	 * @param newPlayer, it's the new player to add
 	 */
 	public void addPlayer(Player newPlayer){
@@ -72,9 +73,9 @@ public class Team{
 	}
 	
 	/**
-	 * findPlayer, this method checks if a player belongs to the team</br>
-	 * <b> Pre:</b> players is initialized and filled</br>
-	 * <b> Pos:</b> </br>
+	 * findPlayer, this method checks if a player belongs to the team<br>
+	 * <b> Pre:</b> players is initialized and filled<br>
+	 * <b> Pos:</b> <br>
 	 * @param id, it's the player's id to check 
 	 * @return found, which is true if the player belongs to, false otherwise
 	 */
@@ -89,9 +90,9 @@ public class Team{
 	}
 	
 	/**
-	 * addCoach, this method adds a coach to the team</br>
-	 * <b> Pre:</b> assistants is initialized and has empty indexes </br>
-	 * <b> Pos:</b> assistants has a new object in the first empty found position. currentAssistants is incremented by one</br>
+	 * addCoach, this method adds a coach to the team<br>
+	 * <b> Pre:</b> assistants is initialized and has empty indexes <br>
+	 * <b> Pos:</b> assistants has a new object in the first empty found position. currentAssistants is incremented by one<br>
 	 * @param newCoach, it's the new coach to add
 	 */
 	public void addCoach(AssistantCoach newCoach){
@@ -104,21 +105,22 @@ public class Team{
 	}
 	
 	/**
-	 * Method that produces a String with all the information of a team
-	 * @return info String with the mentioned information
+	 * addLineUp, this method adds a line up to the team<br>
+	 * <b> Pre:</b> line is initialized <br>
+	 * <b> Pos:</b> line has a new object <br>
+	 * @param date it's the assigned date for the line up
+	 * @param chain it's the formation for the line up, made up of maximum 5 integers that added equal to 10
+	 * @param tactics it's the tactics used for the line up. It belongs to the enum Tactics 
 	 */
-	public String toString(){
-		String info="";
-		info = "*************Equipo*************\n" + 
-		"Entrenador principal: " + mainCoach.getName() + "\n" + playersAndAssistants()+
-		"Alineaciones: \n " + allLines();
-		return info;
+	public void addLineUp(String date, String chain, Tactics tactics){
+		LineUp newLine = new LineUp(date, chain, tactics);
+		line.add(newLine);
 	}
 	
 	/**
 	 * Method that produces a String with the names of all the players and assistant coaches
-	 * <b> Pre:</b> assistants and players are initialized</br>
-	 * <b> Pos:</b> </br>
+	 * <b> Pre:</b> assistants and players are initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @return playerAndAssistantInfo String with the mentioned names 
 	 */
 	public String playersAndAssistants(){
@@ -145,11 +147,11 @@ public class Team{
 	
 	/**
 	 * Method that produces a String with the information of all the formations added
-	 * <b> Pre:</b> line is initialized</br>
-	 * <b> Pos:</b> </br>
+	 * <b> Pre:</b> line is initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @return lineInfo String with the information of each formation
 	 */
-	public String allLines(){ //Añadir a diagrama 
+	public String allLines(){
 		String lineInfo="";
 		
 		for (int i=0; i<line.size(); i++){
@@ -159,6 +161,18 @@ public class Team{
 		}
 		
 		return lineInfo;
+	}
+	
+	/**
+	 * Method that produces a String with all the information of a team
+	 * @return info String with the mentioned information
+	 */
+	public String toString(){
+		String info="";
+		info = "*************Equipo*************\n" + 
+		"Entrenador principal: " + mainCoach.getName() + "\n" + playersAndAssistants()+
+		"Alineaciones: \n " + allLines();
+		return info;
 	}
 	
 

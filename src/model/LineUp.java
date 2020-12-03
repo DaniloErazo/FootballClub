@@ -9,7 +9,10 @@ public class LineUp{
 	private Tactics tactics;
 	
 	/**
-	* This constructor 
+	* This constructor creates a line up
+	* @param date, it's the date for the line up
+	* @param chain it's the formation 
+	* @param tactics it's the tactics used in the formation
 	*/
 	public LineUp(String date, String chain, Tactics tactics){
 		this.date=date;
@@ -18,6 +21,11 @@ public class LineUp{
 		formation = stringToMatrix(chain);
 	}
 	
+	/**
+	* stringToMatrix, this method turns a String with a formation into an integer matrix
+	* @param chain it's the formation 
+	* @return output which is an integer matrix filled with the formation
+	*/
 	public int[][] stringToMatrix(String chain){
 		String[] parts = chain.split("-");
 		
@@ -57,6 +65,11 @@ public class LineUp{
 		return output;
 	}
 	
+	/**
+	* fillRow, this method fills a row with size 7 with a number of players 
+	* @param players the number of players to be filled in the row  
+	* @return out which is an integer array with the players located in order 
+	*/
 	public int[] fillRow(int players){
 		
 		int[] out = new int[7];
@@ -77,7 +90,11 @@ public class LineUp{
 		
 		return out;
 	}
-
+	
+	/**
+	* matrixToString, this method turns an integer matrix into a String with the formation  
+	* @return lineUpString which is the String that contains the formation in the integer matrix
+	*/
 	public String matrixToString(){
 		String lineUpString="";
 		
@@ -99,6 +116,11 @@ public class LineUp{
 		return lineUpString;
 	}
 	
+	/**
+	* matrixToString, this method collects the content of a matrix and returns it in a String  
+	* @param matrix, the matrix that is going to be showed 
+	* @return print which is the String that contains the matrix contents 
+	*/
 	public String showMatrix(int[][] matrix){
 		String print ="";
 		for (int i=0; i< matrix.length; i++ ) {
@@ -110,7 +132,10 @@ public class LineUp{
 		return print;
 	}
 	
-	
+	/**
+	 * Method that produces a String with all the information of the line up
+	 * @return out String with the mentioned information
+	 */
 	public String toString(){
 		String out = "";
 		out+="****** Alineación*********\n"+

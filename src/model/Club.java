@@ -19,6 +19,11 @@ public class Club{
 	
 	/**
 	* Constructor for creating a Club with its name and its teams' names 
+	* @param name, it's the club name
+	* @param nit, it's the club NIT 
+	* @param date, it's the date when the club was created 
+	* @param A, the name for the teamA
+	* @param B, the name for the teamB
 	*/
 	public Club(String name, String nit, String date, String A, String B){
 		this.name=name;
@@ -105,15 +110,15 @@ public class Club{
 	}
 	
 	/**
-	 * addPlayer, this method hires a player for the club </br>
-	 * <b> Pre:</b> employees is initialized </br>
-	 * <b> Pos:</b> employees has a new object in the first empty found position </br>
+	 * addPlayer, this method hires a player for the club <br>
+	 * <b> Pre:</b> employees is initialized <br>
+	 * <b> Pos:</b> employees has a new object in the first empty found position <br>
 	 * @param name, it's the player's name. name!= "", name!=null
 	 * @param id,  it's the player's identification. id!="", id!=null
-	 * @param salary, player's assigned salary. salary &gt 0
+	 * @param salary, player's assigned salary. salary &gt; 0
 	 * @param shirt, player's shirt number. shirt!= "", shirt!=null
-	 * @param rating, player's average calification. rating &gt 0
-	 * @param goals, player's scored goals. goals &gt 0
+	 * @param rating, player's average calification. rating &gt; 0
+	 * @param goals, player's scored goals. goals &gt; 0
 	 * @param position, player's position in the field. position!= "", position!=null, 
 	 * position belongs to one of the enum Position
 	 */
@@ -125,15 +130,16 @@ public class Club{
 	}
 	
 	/**
-	 * addCoach, this method hires a main coach for the club </br>
-	 * <b> Pre:</b> employees is initialized </br>
-	 * <b> Pos:</b> employees has a new object in the first empty found position </br>
+	 * addCoach, this method hires a main coach for the club <br>
+	 * <b> Pre:</b> employees is initialized <br>
+	 * <b> Pos:</b> employees has a new object in the first empty found position <br>
 	 * @param name, it's the coach name. name!= "", name!=null
 	 * @param id,  it's the coach identification. id!="", id!=null
-	 * @param salary, coach assigned salary. salary &gt 0
-	 * @param experienceYears, coach experience in years. experienceYears &gt 0
-	 * @param teamsExperience, number of teams that the coach has managed. teamsExperience &gt 0
-	 * @param wonChampionships, number of championships won by the coach. wonChampionships &gt 0
+	 * @param salary, coach assigned salary. salary &gt; 0
+	 * @param experienceYears, coach experience in years. experienceYears &gt; 0
+	 * @param teamsExperience, number of teams that the coach has managed. teamsExperience &gt; 0
+	 * @param wonChampionships, number of championships won by the coach. wonChampionships &gt; 0
+	 * @param team, it's the team where the main coach is going to be assigned
 	 */
 	public void addCoach (String name, String id, double salary, int experienceYears, int teamsExperience, int wonChampionships, String team){
 		MainCoach ppalCoach = new MainCoach(name, id, salary, experienceYears, teamsExperience, wonChampionships);
@@ -147,13 +153,13 @@ public class Club{
 	}
 	
 	/**
-	 * addCoach, this method hires an assistant coach for the club </br>
-	 * <b> Pre:</b> employees is initialized </br>
-	 * <b> Pos:</b> employees has a new object in the first empty found position </br>
+	 * addCoach, this method hires an assistant coach for the club <br>
+	 * <b> Pre:</b> employees is initialized <br>
+	 * <b> Pos:</b> employees has a new object in the first empty found position <br>
 	 * @param name, it's the coach name. name!= "", name!=null
 	 * @param id,  it's the coach identification. id!="", id!=null
-	 * @param salary, coach assigned salary. salary &gt 0
-	 * @param experienceYears, coach experience in years. experienceYears &gt 0
+	 * @param salary, coach assigned salary. salary &gt; 0
+	 * @param experienceYears, coach experience in years. experienceYears &gt; 0
 	 * @param wasPlayer, if the coach was a player it's true, otherwise false
 	 * @param skill, contains the coach special skill. It belongs to enum Skill. skill!="", skill!=null
 	 */
@@ -164,9 +170,9 @@ public class Club{
 	}
 	
 	/**
-	 * fireEmployee, this method fires an employee  </br>
-	 * <b> Pre:</b> employees is initialized and filled </br>
-	 * <b> Pos:</b> </br>
+	 * fireEmployee, this method fires an employee  <br>
+	 * <b> Pre:</b> employees is initialized and filled <br>
+	 * <b> Pos:</b> <br>
 	 * @param id, it's the employee's identification to fire. id!= "", id!=null
 	 */
 	public void fireEmployee(String id){
@@ -178,7 +184,14 @@ public class Club{
 		}
 	}
 	
-	public String consultEmployee(String id){ //añadir a diagrama
+	/**
+	 *  consultEmployee, this method looks for the information of an employee <br>
+	 * <b> Pre:</b> employees is initialized and filled <br>
+	 * <b> Pos:</b> <br>
+	 * @param id, it's the employee's identification to consult. id!= "", id!=null
+	 * @return info, which is a String with all the information of the employee
+	 */
+	public String consultEmployee(String id){ 
 		String info="";
 		
 		for(int i=0; i<employees.size(); i++){
@@ -191,7 +204,14 @@ public class Club{
 		return info;
 	}
 	
-	public String consultTeam(int i){ //añadir a diagrama
+	/**
+	 *  consultTeam, this method looks for the information of a team <br>
+	 * <b> Pre:</b> teamA and teamB are created<br>
+	 * <b> Pos:</b> <br>
+	 * @param i, it's the chosen team, 1 for teamA and 2 for teamB. i ==1 || i==2 
+	 * @return info, which is a String with all the information of the team
+	 */
+	public String consultTeam(int i){ 
 		String info = "";
 		if (i==1){
 			info = teamA.toString();
@@ -203,9 +223,9 @@ public class Club{
 	}
 	
 	/**
-	 * playerToTeam, this method assigns a player to a team  </br>
-	 * <b> Pre:</b> employees is initialized and filled. </br>
-	 * <b> Pos:</b>  </br>
+	 * playerToTeam, this method assigns a player to a team  <br>
+	 * <b> Pre:</b> employees is initialized and filled. <br>
+	 * <b> Pos:</b>  <br>
 	 * @param id, it's the player's identification. It does correspond to a player. id!= "", id!=null
 	 * @param team, it's the name of the team that is going to have a new player. The team exists. team!= "", team!=null
 	 */
@@ -230,9 +250,9 @@ public class Club{
 	}
 	
 	/**
-	 * coachToTeam, this method assigns an assistant coach to a team  </br>
-	 * <b> Pre:</b> employees is initialized and filled. </br>
-	 * <b> Pos:</b>  </br>
+	 * coachToTeam, this method assigns an assistant coach to a team  <br>
+	 * <b> Pre:</b> employees is initialized and filled. <br>
+	 * <b> Pos:</b>  <br>
 	 * @param id, it's the coach identification. It does correspond to an assistant coach. id!= "", id!=null
 	 * @param team, it's the name of the team that is going to have a new coach. The team exists. team!= "", team!=null
 	 */
@@ -281,7 +301,7 @@ public class Club{
 	 * checkType, this method checks if the employee given id belongs to the type of employee required<br>
 	 * <b> pre: </b> employees is initialized <br>  
 	 * <b> pos: </b> <br>
-	 * @param type is the type to be consulted, it's either 1, 2 or 3. 1 for player. 2 for assistant coach and 3 for coach. type &gt; 0 <br>
+	 * @param type is the type to be consulted, it's either 1, 2 or 3. 1 for player. 2 for assistant coach and 3 for coach. type &gt;; 0 <br>
 	 * @param id is the employee identification to check. id!=null, id!=""  
 	 * @return typeFound if the playlist belongs to the given type it's true, otherwise is false 
 	 */
@@ -342,9 +362,9 @@ public class Club{
 	}
 	
 	/**
-	 * officeSpace, this method informs if there's space available in the offices</br>
-	 * <b> Pre:</b> offices is initialized</br>
-	 * <b> Pos:</b> </br>
+	 * officeSpace, this method informs if there's space available in the offices<br>
+	 * <b> Pre:</b> offices is initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @return it returns true if there's space, false otherwise
 	 */
 	public boolean officeSpace(){
@@ -360,9 +380,9 @@ public class Club{
 	}
 	
 	/**
-	 * setInOffice, this method puts an employee in an office</br>
-	 * <b> Pre:</b> offices and employees are initialized. There's available indexes in offices</br>
-	 * <b> Pos:</b> offices has an index filled</br>
+	 * setInOffice, this method puts an employee in an office<br>
+	 * <b> Pre:</b> offices and employees are initialized. There's available indexes in offices<br>
+	 * <b> Pos:</b> offices has an index filled<br>
 	 * @param id,  it's the employee identification. id!=null, id!=""
 	 */
 	public void setInOffice(String id){
@@ -387,9 +407,9 @@ public class Club{
 	
 	
 	/**
-	 * dressingSpace, this method informs if there's space available in a dressing room</br>
-	 * <b> Pre:</b> dressingA and dressingB are initialized</br>
-	 * <b> Pos:</b> </br>
+	 * dressingSpace, this method informs if there's space available in a dressing room<br>
+	 * <b> Pre:</b> dressingA and dressingB are initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @param dressing, it's the dressing room to check, 1 for dressingA, 2 for dressingB. dressing==(1 || 2)
 	 * @return it returns true if there's space, false otherwise
 	 */
@@ -412,14 +432,14 @@ public class Club{
 	}
 	
 	/**
-	 * verifyTeamtoDressing, this method checks if a player can be added to a dressing room according to the team</br>
-	 * <b> Pre:</b> dressingA, dressingB, and employees are initialized</br>
-	 * <b> Pos:</b> </br>
+	 * verifyTeamtoDressing, this method checks if a player can be added to a dressing room according to the team<br>
+	 * <b> Pre:</b> dressingA, dressingB, and employees are initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @param dressing, it's the dressing room to check, 1 for dressingA, 2 for dressingB. dressing==(1 || 2)
 	 * @param id it's the player's id to check 
 	 * @return team true if the player can be added, false otherwise
 	 */
-	public boolean verifyTeamtoDressing(String id, int dressing){ //añadir a diagrama 
+	public boolean verifyTeamtoDressing(String id, int dressing){ 
 		
 		boolean team = false;
 		boolean team2 = false; 
@@ -466,9 +486,9 @@ public class Club{
 	}
 	
 	/**
-	 * setInDressing, this method puts a player in an dressing room</br>
-	 * <b> Pre:</b> dressingA, dressingB and employees are initialized. There's available indexes in dressingA or dressingB </br>
-	 * <b> Pos:</b> dressingA or dressingB are updated</br>
+	 * setInDressing, this method puts a player in an dressing room<br>
+	 * <b> Pre:</b> dressingA, dressingB and employees are initialized. There's available indexes in dressingA or dressingB <br>
+	 * <b> Pos:</b> dressingA or dressingB are updated<br>
 	 * @param id,  it's the player identification. It does correspond to a player. id!=null, id!=""
 	 * @param dressing, it's the dressing room to check, 1 for dressingA, 2 for dressingB. dressing==(1 || 2)
 	 */
@@ -509,9 +529,9 @@ public class Club{
 	
 	
 	/**
-	 * showOffice, this method puts the offices content in a String</br>
-	 * <b> Pre:</b> offices is initialized</br>
-	 * <b> Pos:</b> </br>
+	 * showOffice, this method puts the offices content in a String<br>
+	 * <b> Pre:</b> offices is initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @return print it returns a String with the information of how the offices are organized 
 	 */
 	public String showOffice() {
@@ -528,9 +548,9 @@ public class Club{
 	}
 	
 	/**
-	 * showDressing, this method puts the dressing room content in a String</br>
-	 * <b> Pre:</b> dressingA and dressingB are initialized</br>
-	 * <b> Pos:</b> </br>
+	 * showDressing, this method puts the dressing room content in a String<br>
+	 * <b> Pre:</b> dressingA and dressingB are initialized<br>
+	 * <b> Pos:</b> <br>
 	 * @param dressing it's the dressing room to check, 1 for dressingA, 2 for dressingB. dressing==(1 || 2)
 	 * @return print it returns a String with the information of the selected dressing room 
 	 */
@@ -554,7 +574,16 @@ public class Club{
 		return print;
 	}
 	
-	public void addLineUp(String date, String formation, String tactics, String team){ //añadir a diagrama
+	/**
+	 * addLineUp, this method adds a line up to a team<br>
+	 * <b> Pre:</b> teamA and teamB are createdd<br>
+	 * <b> Pos:</b> <br>
+	 * @param date it's the assigned date for the line up. date!=null, date!=""
+	 * @param formation it's the formation for the line up, made up of maximum 5 integers that added equal to 10. formation!=null, formation!=""
+	 * @param tactics it's the tactics used for the line up. It's a String that belongs to one of the values of Tactics enum. tactics!=null, tactics!=""
+	 * @param team it's the team to add line up. team!=null, team!=""
+	 */
+	public void addLineUp(String date, String formation, String tactics, String team){ 
 		Tactics aTactics = Tactics.valueOf(tactics);
 		
 		if(team.equals("Bridgets")){
@@ -564,6 +593,10 @@ public class Club{
 		}
 	}
 	
+	/**
+	 * Method that produces a String with the main information of the club
+	 * @return info String with all the information
+	 */
 	public String toString(){
 		String info = "***********CLUB***********\n"; 
 		info+= "Nombre: " + name + "\n" +

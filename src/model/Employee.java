@@ -7,6 +7,13 @@ public abstract class Employee{
 	private double salary;
 	private boolean status;
 	
+	
+	/**
+	* Constructor for an employee with basic information, used in the sub classes
+	 * @param name, it's the employee's name 
+	 * @param id, it's the employee's identification
+	 * @param salary, it's the employee's salary
+	*/
 	public Employee(String name, String id, double salary){
 		this.name=name;
 		this.id=id;
@@ -20,6 +27,10 @@ public abstract class Employee{
 	
 	public String getName(){
 		return name;
+	}
+	
+	public double getSalary(){
+		return salary;
 	}
 	
 	public void setStatus(boolean status){

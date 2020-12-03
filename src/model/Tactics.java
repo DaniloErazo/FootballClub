@@ -1,8 +1,8 @@
 package model;
 
 public enum Tactics{
-	POSESION,
-	CONTRA_ATAQUE,
-	PRESION_ALTA,
+	POSSESSION,
+	COUNTERATTACK,
+	HIGH_PRESSURE,
 	DEFAULT
 }

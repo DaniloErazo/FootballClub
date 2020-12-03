@@ -1,5 +1,5 @@
 package ui;
-import model.*;
+import model.Club;
 
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -26,6 +26,10 @@ public class Main{
 		
 	}
 	
+	/**
+	 * Constructor that creates one object of the Club class in order to 
+	 * initialize the application, includding name, nit, foundation date and its teams names 
+	 */
 	public Main(){
 		newClub= new Club("Club Los Olivos", "800.197.268-4", "12/10/1979", "Bridgets", "Vulcano");
 	}
@@ -96,6 +100,10 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * hireEmployee is a method that asks for the necessary information to hire a new employee, 
+	 * it validates accurate inputs
+	 */
 	public void hireEmployee(){
 		String name="";
 		String id="";
@@ -134,6 +142,12 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * hirePlayer is a method that asks for the necessary information to hire a new player
+	 * @param name, it's the employee's name 
+	 * @param id, it's the employee's identification
+	 * @param salary, it's the employee's salary 
+	 */
 	public void hirePlayer(String name, String id, double salary){
 		String shirt="";
 		double rating=0;
@@ -151,13 +165,19 @@ public class Main{
 		goals=sc.nextInt();
 		sc.nextLine();
 		
-		position = (String)JOptionPane.showInputDialog(null,"Seleccione la posición que juega","Posiciones", JOptionPane.QUESTION_MESSAGE, null, new Object[] { "GOALKEEPER","DEFENDER", "MILDFIELD", "STRICKER"},"Seleccione");
+		position = (String)JOptionPane.showInputDialog(null,"Seleccione la posición que juega","Posiciones", JOptionPane.QUESTION_MESSAGE, null, new Object[] { "GOALKEEPER","DEFENDER", "MIDFIELDER", "STRIKER"},"Seleccione");
 		
 		newClub.addPlayer(name, id, salary, shirt, rating, goals, position);
 		System.out.println("Jugador contratado");
 		
 	}
 	
+	/**
+	 * hireCoach is a method that asks for the necessary information to hire a new coach, either assistant or main coach
+	 * @param name, it's the employee's name 
+	 * @param id, it's the employee's identification
+	 * @param salary, it's the employee's salary 
+	 */
 	public void hireCoach(String name, String id, double salary){
 		String type="";
 		int experience=0;
@@ -206,10 +226,15 @@ public class Main{
 		}
 	}
 	
-	public boolean verifyString(String ID){
+	/**
+	 * verifyString is a method that validates if a String only contains numbers
+	 * @param id, it's the String that is going to be checked 
+	 * @return accepted, which is true if the String only has numbers, false otherwise 
+	 */
+	public boolean verifyString(String id){
 		boolean accepted=false;
 		try {
-			Long.parseLong(ID);
+			Long.parseLong(id);
 			 accepted=true;
 		} catch (NumberFormatException nfe){
 			accepted=false;
@@ -217,6 +242,10 @@ public class Main{
 		return accepted;
 	}
 	
+	/**
+	 * fireEmployee is a method that asks for the identification of an employee to be fired,
+	 * it validates accurate input 
+	 */
 	public void fireEmployee(){
 		String id="";
 		
@@ -233,6 +262,10 @@ public class Main{
 		
 	}
 	
+	/**
+	 * playertoTeam is a method that assigns a player to a team through their identification, 
+	 * it validates space in the team and the identification
+	 */
 	public void playertoTeam(){
 		String id="";
 		String team="";
@@ -255,6 +288,10 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * coachToTeam is a method that assigns an assistant coach to a team through their identification, 
+	 * it validates space in the team and the identification
+	 */
 	public void coachToTeam(){
 		String id="";
 		String team="";
@@ -278,6 +315,9 @@ public class Main{
 		
 	}
 	
+	/**
+	 * setInOffice is a method that assigns an office to a coach, it validates space in the office and the given identification
+	 */
 	public void setInOffice(){
 		String id="";
 		
@@ -296,6 +336,9 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * setInOffice is a method that assigns a player to a dressing room, it validates space in the dressing room and the given identification
+	 */
 	public void setInDressing(){
 		String id="";
 		int dressing = 0;
@@ -320,6 +363,10 @@ public class Main{
 		}
 	}
 	
+	/**
+	 * addLine is a method that asks for the necessary information to add a line up to a team, 
+	 * it validates accurate inputs
+	 */
 	public void addLine(){
 		String date="";
 		String formation="";
@@ -345,10 +392,13 @@ public class Main{
 		
 		if(count>10 || count<10){
 			System.out.println("Formación no válida, debe contener 10 jugadores");
-		}else {
+		} else if (size>5){
+			System.out.println("Formación no válida, no puede contener más de 5 posiciones");
+		}
+		else {
 			team = (String)JOptionPane.showInputDialog(null,"Seleccione equipo","Equipos", JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Bridgets","Vulcano"},"Seleccione");
 		
-			tactic = (String)JOptionPane.showInputDialog(null,"Seleccione táctica","Tácticas", JOptionPane.QUESTION_MESSAGE, null, new Object[] { "POSESION","CONTRA_ATAQUE", "PRESION_ALTA", "DEFAULT"},"Seleccione");
+			tactic = (String)JOptionPane.showInputDialog(null,"Seleccione táctica","Tácticas", JOptionPane.QUESTION_MESSAGE, null, new Object[] { "POSSESSION","COUNTERATTACK", "HIGH_PRESSURE", "DEFAULT"},"Seleccione");
 			
 			newClub.addLineUp(date, formation, tactic, team);
 		}
@@ -357,6 +407,9 @@ public class Main{
 		
 	}
 	
+	/**
+	 * consult is a method that shows the menu of consults and executes the chosen one
+	 */
 	public void consult(){
 		System.out.println(
 				"Menú de consultas, seleccione una opción\n" +
@@ -374,7 +427,12 @@ public class Main{
 			case 1: 
 			System.out.println("Digite la identificación del empleado");
 			String id=sc.nextLine();
-			System.out.println(newClub.consultEmployee(id));
+			
+			if(!newClub.findId(id)){
+				System.out.println("Identificación no encontrada, intente de nuevo");
+			} else {
+				System.out.println(newClub.consultEmployee(id));
+			}
 			break;
 			
 			case 2:
@@ -408,17 +466,5 @@ public class Main{
 			System.out.println("Opción no válida");
 		}
 	}
-	
-	public String showMatrix(String[][] matrix){
-		String print ="";
-		for (int i=0; i< matrix.length; i++ ) {
-			for (int j = 0; j < matrix[0].length; j++) {
-				print += matrix[i][j] + " ";
-			}
-			print += "\n";
-		}
-		return print;
-	}
-	
 	
 }
